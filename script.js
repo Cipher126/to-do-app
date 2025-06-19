@@ -52,8 +52,10 @@ const updateTaskContainer = () => {
           <p><strong>Title:</strong> ${title}</p>
           <p><strong>Date:</strong> ${date}</p>
           <p><strong>Description:</strong> ${description}</p>
-          <button onclick="editTask(this)" type="button" class="btn edit">Edit</button>
-          <button onclick="deleteTask(this)" type="button" class="btn delete">Delete</button>
+          <div class="task-status">
+          <button onclick="editTask(this)" type="button" class="btn cad edit">Edit</button>
+          <button onclick="deleteTask(this)" type="button" class="btn cad delete">Delete</button>
+          </div>
         </div>
       `)
     }
@@ -62,18 +64,20 @@ const updateTaskContainer = () => {
 
 
 const deleteTask = (buttonEl) => {
+  const taskDiv = buttonEl.closest('.task');
   const dataArrIndex = taskData.findIndex(
-    (item) => item.id === buttonEl.parentElement.id
+    (item) => item.id === taskDiv.id
   );
 
-  buttonEl.parentElement.remove();
+  taskDiv.remove();
   taskData.splice(dataArrIndex, 1);
   localStorage.setItem("data", JSON.stringify(taskData));
 }
 
 const editTask = (buttonEl) => {
-    const dataArrIndex = taskData.findIndex(
-    (item) => item.id === buttonEl.parentElement.id
+  const taskDiv = buttonEl.closest('.task');
+  const dataArrIndex = taskData.findIndex(
+    (item) => item.id === taskDiv.id
   );
 
   currentTask = taskData[dataArrIndex];
